@@ -84,7 +84,31 @@ def get_event_details(id):
 
     # TODO: Finish implementing this view function
 
-    return render_template('event-details.html')
+    # print("*" * 20)
+    # print("THIS IS ID")
+    # print(id)
+
+    # url = 'https://app.ticketmaster.com/discovery/v2/events'
+    url = 'https://app.ticketmaster.com/discovery/v2/events?apikey=B0kM34uuj2U7TPUaTslXvRyPu3fxxas2&keyword=blackpink&locale=*'
+    # payload = { 'apikey': API_KEY,
+    #              'id': id
+    #             }
+
+    res = requests.get(url)
+    data = res.json()
+
+    event_name = data['_embedded']
+
+    print("*" * 20)
+    print("THIS IS DATA")
+    print(data['_embedded'])
+    print("*" * 20)
+    print("THIS IS EVENT NAME")
+    print(event_name)
+
+    return render_template('event-details.html',
+                            pformat=pformat,
+                            data=data)
 
 
 if __name__ == '__main__':
